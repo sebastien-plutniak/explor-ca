@@ -4,15 +4,20 @@ shiny::shinyApp(
   ui = navbarPage("Correspondance Analysis", # UI ----
                   theme = shinythemes::shinytheme("flatly"),
                   tabPanel("Import",
+                        fluidRow(
+                            column(3),
+                             column(6,
                            h2("Presentation"),
                            HTML(paste(
-                           "<p> Run a 
+                           "<p> This app runs a 
                            <a href=https://en.wikipedia.org/wiki/Correspondence_analysis target=_blank>Correspondance Analysis</a>
-                            and explore the results.
+                            and allows to interactively explore  the results.
                            </p>
-                           <p>Intended to work with the <a href=https://cran.r-project.org/package=archeoViz target=_blank>archeoViz</a> application, this application is an adaptation of 
-                           the <a href=https://cran.r-project.org/package=explor target=_blank>explor</a> 
-                           R package developped by <a href=https://github.com/juba/explor target=blank>Julien Barnier</a>.</p>")), 
+                           <p>
+                           An adapted version of 
+                           the <a href=https://cran.r-project.org/package=explor target=_blank><i>explor</i></a> R package, this application is designed to work with archaeological data exported from the <a href=https://cran.r-project.org/package=archeoViz target=_blank>archeoViz</a> application. However, data can also be imported using the buttons below.
+                           </p>
+                           <p>  <i>explor</i> is developped by <a href=https://github.com/juba/explor target=blank>Julien Barnier</a>. The code of this adapted version is available on <a href=https://github.com/sebastien-plutniak/explor-ca target=_blank>github</a>.</p>")), 
                            h2("Imported Data"),
                            DT::DTOutput("importedData"),
                            fileInput('input.file', "Import a CSV file",
@@ -25,7 +30,8 @@ shiny::shinyApp(
                                                     label = "Decimal",
                                                     choices = c("." ='.', ","),
                                                     inline=T, selected = '.')
-                  ), # end panel 
+                             ))
+                           ), # end panel 
                   
                   tabPanel(gettext("Eigenvalues"),
                            uiOutput("explor_multi_eigenUI")
